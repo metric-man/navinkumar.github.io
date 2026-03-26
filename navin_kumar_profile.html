@@ -1,32 +1,645 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navin Kumar's Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Navin Kumar Manoharan — Product & Analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F4EF;
+    --bg2: #EDE9E2;
+    --ink: #1A1714;
+    --ink2: #4A4540;
+    --ink3: #7A7570;
+    --accent: #C84B2F;
+    --accent2: #E8A87C;
+    --gold: #B08D5B;
+    --border: rgba(26,23,20,0.1);
+    --card: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 60px;
+    background: rgba(247,244,239,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--ink3);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .nav-links { display: flex; gap: 36px; }
+  .nav-links a {
+    font-size: 14px; font-weight: 500; color: var(--ink2);
+    text-decoration: none; letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+  }
+  .hero-left {
+    padding: 100px 60px 80px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 32px; height: 1px; background: var(--accent);
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 5vw, 72px);
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 28px;
+  }
+  h1 span { color: var(--accent); }
+  .hero-desc {
+    font-size: 17px; color: var(--ink2); line-height: 1.75;
+    max-width: 480px; margin-bottom: 48px;
+  }
+  .hero-cta {
+    display: flex; gap: 16px; flex-wrap: wrap;
+  }
+  .btn {
+    padding: 14px 32px; border-radius: 3px;
+    font-size: 14px; font-weight: 600; letter-spacing: 0.04em;
+    text-decoration: none; transition: all 0.2s;
+    cursor: pointer; border: none;
+  }
+  .btn-primary {
+    background: var(--accent); color: white;
+  }
+  .btn-primary:hover { background: #A63A20; transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent; color: var(--ink);
+    border: 1.5px solid var(--ink2);
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero-right {
+    background: var(--bg2);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    padding: 60px;
+  }
+  .hero-right::before {
+    content: 'NKM';
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: 220px; font-weight: 900;
+    color: rgba(26,23,20,0.04);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .stats-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+    width: 100%; max-width: 380px; position: relative; z-index: 1;
+  }
+  .stat-card {
+    background: white; padding: 32px 28px;
+    transition: transform 0.2s;
+  }
+  .stat-card:hover { transform: translateY(-2px); }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 44px; font-weight: 900; color: var(--accent);
+    line-height: 1; margin-bottom: 8px;
+  }
+  .stat-label {
+    font-size: 13px; color: var(--ink3); line-height: 1.4; font-weight: 400;
+  }
+
+  /* ROLES */
+  .roles-section {
+    background: var(--ink);
+    padding: 80px 60px;
+    overflow: hidden;
+  }
+  .roles-header {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ink3); margin-bottom: 40px;
+  }
+  .roles-track {
+    display: flex; gap: 16px; flex-wrap: wrap;
+  }
+  .role-pill {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 12px 24px; border-radius: 2px;
+    color: rgba(255,255,255,0.8);
+    font-size: 15px; font-weight: 500;
+    transition: all 0.2s;
+    cursor: default;
+  }
+  .role-pill:hover, .role-pill.active {
+    background: var(--accent); border-color: var(--accent); color: white;
+  }
+
+  /* SECTION SHARED */
+  section {
+    padding: 100px 60px;
+  }
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-label span {
+    color: var(--ink3); font-size: 11px;
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 3vw, 48px);
+    font-weight: 700; color: var(--ink);
+    margin-bottom: 60px; line-height: 1.15;
+  }
+
+  /* EXPERIENCE */
+  #experience { background: white; }
+  .exp-list { display: flex; flex-direction: column; gap: 1px; }
+  .exp-item {
+    border: 1px solid var(--border);
+    cursor: pointer; transition: all 0.25s;
+    overflow: hidden;
+  }
+  .exp-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    padding: 32px 36px;
+    gap: 24px;
+  }
+  .exp-title {
+    font-size: 20px; font-weight: 600; color: var(--ink); margin-bottom: 4px;
+  }
+  .exp-company {
+    font-size: 14px; color: var(--accent); font-weight: 500; margin-bottom: 6px;
+  }
+  .exp-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px; color: var(--ink3);
+  }
+  .exp-toggle {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--bg2); display: flex; align-items: center; justify-content: center;
+    font-size: 18px; color: var(--ink3); transition: all 0.25s;
+    flex-shrink: 0;
+  }
+  .exp-item.open .exp-toggle { background: var(--accent); color: white; transform: rotate(45deg); }
+  .exp-body {
+    max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
+    padding: 0 36px;
+  }
+  .exp-item.open .exp-body { max-height: 500px; padding-bottom: 32px; }
+  .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .exp-bullets li {
+    padding-left: 20px; position: relative;
+    font-size: 15px; color: var(--ink2); line-height: 1.65;
+  }
+  .exp-bullets li::before {
+    content: '—'; position: absolute; left: 0; color: var(--accent);
+  }
+  .exp-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .tag {
+    background: var(--bg2); color: var(--ink3);
+    font-size: 12px; padding: 4px 12px; border-radius: 2px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* SKILLS */
+  #skills { background: var(--bg); }
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .skill-group {
+    background: white; padding: 32px; border: 1px solid var(--border);
+  }
+  .skill-group-title {
+    font-size: 13px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--ink3); margin-bottom: 20px;
+    padding-bottom: 12px; border-bottom: 1px solid var(--border);
+  }
+  .skill-items { display: flex; flex-direction: column; gap: 10px; }
+  .skill-item {
+    font-size: 14px; color: var(--ink2);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .skill-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* ABOUT */
+  #about { background: var(--bg2); }
+  .about-grid {
+    display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; align-items: start;
+  }
+  .about-text {
+    font-size: 18px; color: var(--ink2); line-height: 1.8;
+  }
+  .about-text p + p { margin-top: 24px; }
+  .about-aside { display: flex; flex-direction: column; gap: 24px; }
+  .aside-item {
+    padding: 24px; background: white; border-left: 3px solid var(--accent);
+  }
+  .aside-item-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink3); margin-bottom: 8px;
+  }
+  .aside-item-value {
+    font-size: 16px; font-weight: 600; color: var(--ink);
+  }
+
+  /* CONTACT */
+  #contact {
+    background: var(--ink);
+    color: white;
+    text-align: center;
+    padding: 120px 60px;
+  }
+  #contact .section-label { justify-content: center; color: var(--accent2); }
+  #contact .section-label span { color: rgba(255,255,255,0.3); }
+  #contact h2 { color: white; margin-bottom: 20px; }
+  .contact-sub {
+    font-size: 18px; color: rgba(255,255,255,0.55); margin-bottom: 60px;
+  }
+  .contact-links {
+    display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
+  }
+  .contact-link {
+    padding: 16px 36px; border: 1px solid rgba(255,255,255,0.2);
+    color: white; text-decoration: none; font-size: 14px; font-weight: 500;
+    letter-spacing: 0.04em; transition: all 0.2s; border-radius: 2px;
+  }
+  .contact-link:hover { background: var(--accent); border-color: var(--accent); }
+  .contact-link.primary { background: var(--accent); border-color: var(--accent); }
+
+  /* OPEN TO */
+  .open-to {
+    margin-top: 80px; padding-top: 60px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex; flex-direction: column; align-items: center; gap: 20px;
+  }
+  .open-to-label {
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+  }
+  .open-to-roles {
+    display: flex; gap: 12px; flex-wrap: justify-content;
+  }
+  .open-to-role {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+    padding: 8px 18px; border-radius: 2px;
+    color: rgba(255,255,255,0.7); font-size: 13px;
+  }
+
+  /* FOOTER */
+  footer {
+    background: #0D0B09; color: rgba(255,255,255,0.25);
+    text-align: center; padding: 24px;
+    font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.08em;
+  }
+
+  /* SCROLL INDICATOR */
+  .scroll-line {
+    position: absolute; bottom: 40px; left: 60px;
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    color: var(--ink3); letter-spacing: 0.1em; text-transform: uppercase;
+    animation: fadeup 2s ease 1s both;
+  }
+  .scroll-line::before {
+    content: ''; width: 1px; height: 40px;
+    background: var(--ink3);
+    animation: grow 1.5s ease 1s both;
+  }
+  @keyframes grow { from { height: 0; } to { height: 40px; } }
+  @keyframes fadeup { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+  /* ANIMATIONS */
+  @keyframes slidein {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: none; }
+  }
+  .hero-eyebrow { animation: slidein 0.6s ease 0.1s both; }
+  h1 { animation: slidein 0.6s ease 0.25s both; }
+  .hero-desc { animation: slidein 0.6s ease 0.4s both; }
+  .hero-cta { animation: slidein 0.6s ease 0.55s both; }
+  .stats-grid { animation: slidein 0.7s ease 0.3s both; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { min-height: 340px; }
+    .hero-left { padding: 60px 24px 40px; }
+    section { padding: 70px 24px; }
+    .roles-section { padding: 60px 24px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
 </head>
 <body>
-    <header>
-        <h1>Navin Kumar</h1>
-        <p>Welcome to my portfolio!</p>
-    </header>
-    <main>
-        <section>
-            <h2>About Me</h2>
-            <p>Brief introduction about Navin Kumar.</p>
-        </section>
-        <section>
-            <h2>Projects</h2>
-            <ul>
-                <li>Project 1</li>
-                <li>Project 2</li>
-                <li>Project 3</li>
-            </ul>
-        </section>
-    </main>
-    <footer>
-        <p>Contact: navin.kumar@email.com</p>
-    </footer>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Navin Kumar Manoharan</div>
+  <div class="nav-links">
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding: 80px 0 0; position: relative;">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Product · Analytics · Customer Success</div>
+    <h1>Navin Kumar<br><span>Manoharan</span></h1>
+    <p class="hero-desc">
+      6+ years turning complex data platforms into measurable business outcomes.
+      I sit at the intersection of product thinking, technical depth, and customer empathy —
+      helping enterprise teams adopt, scale, and trust their analytics infrastructure.
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-primary">Get in Touch</a>
+      <a href="#experience" class="btn btn-outline">View Experience</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num">30+</div>
+        <div class="stat-label">Enterprise customers<br>across SEA & APAC</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">6+</div>
+        <div class="stat-label">Years in SaaS,<br>analytics & MarTech</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">800+</div>
+        <div class="stat-label">Customers onboarded<br>via GTM launch</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">44%</div>
+        <div class="stat-label">NPS improvement<br>driven by data insights</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-line">Scroll</div>
+</section>
+
+<!-- ROLES TARGETING -->
+<div class="roles-section">
+  <div class="roles-header">// Open to opportunities in</div>
+  <div class="roles-track">
+    <div class="role-pill active">Customer Success Manager</div>
+    <div class="role-pill">Technical Account Manager</div>
+    <div class="role-pill">Solutions Architect</div>
+    <div class="role-pill">Product Manager</div>
+    <div class="role-pill">Solutions Consultant</div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">// 01 — Experience <span>Where I've done the work</span></div>
+  <h2>A career built on<br>making complexity simple</h2>
+  <div class="exp-list">
+
+    <div class="exp-item" onclick="toggleExp(this)">
+      <div class="exp-header">
+        <div>
+          <div class="exp-title">Senior Solutions Consultant — Analytics & MarTech</div>
+          <div class="exp-company">Ematic Solutions · Marketing & Technology Consultancy</div>
+          <div class="exp-period">Mar 2022 — Feb 2026</div>
+        </div>
+        <div class="exp-toggle">+</div>
+      </div>
+      <div class="exp-body">
+        <ul class="exp-bullets">
+          <li>Partnered with 30+ enterprise customers to translate user needs into scalable product improvements and implementation strategies within a SaaS analytics ecosystem.</li>
+          <li>Synthesized customer feedback, platform usage data, and recurring issues to identify product gaps and influence feature prioritization discussions with Product & Engineering.</li>
+          <li>Collaborated cross-functionally on instrumentation, data design, and delivery while supporting go-to-market and adoption efforts across enterprise accounts in SEA & APAC.</li>
+          <li>Conducted recurring technical and executive business reviews using success metrics to demonstrate platform value, surface adoption gaps, and recommend improvements.</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="tag">Mixpanel</span><span class="tag">BigQuery</span><span class="tag">GA4</span>
+          <span class="tag">Segment</span><span class="tag">Customer Success</span><span class="tag">Enterprise</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item" onclick="toggleExp(this)">
+      <div class="exp-header">
+        <div>
+          <div class="exp-title">Associate Product Manager</div>
+          <div class="exp-company">Sub-AI · A business unit of Ematic Solutions</div>
+          <div class="exp-period">Jun 2021 — Feb 2022</div>
+        </div>
+        <div class="exp-toggle">+</div>
+      </div>
+      <div class="exp-body">
+        <ul class="exp-bullets">
+          <li>Owned roadmap and execution for 3 product areas (Marketplace, Dashboards, Integrations), defining quarterly plans aligned to business goals.</li>
+          <li>Translated roadmap into PRDs, epics, and user stories — collaborating with 6+ engineers and QA in Agile squads to plan, groom, and deliver features.</li>
+          <li>Launched key features including Amphoria GTM, building a growth funnel that onboarded 800+ customers and reduced operational effort by 60%.</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="tag">Product Roadmap</span><span class="tag">PRDs</span><span class="tag">Agile</span>
+          <span class="tag">GTM</span><span class="tag">Analytics Dashboards</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item" onclick="toggleExp(this)">
+      <div class="exp-header">
+        <div>
+          <div class="exp-title">Program Manager (Product Management)</div>
+          <div class="exp-company">MyCaptain · Education Technology</div>
+          <div class="exp-period">Aug 2019 — Oct 2020</div>
+        </div>
+        <div class="exp-toggle">+</div>
+      </div>
+      <div class="exp-body">
+        <ul class="exp-bullets">
+          <li>Managed end-to-end delivery of learning platform initiatives, coordinating across product, operations, legal, and customer success teams.</li>
+          <li>Used user feedback and engagement data to drive product improvements — increasing NPS by 44% and reducing support response time by 70%.</li>
+          <li>Identified user pain points and contributed to iterative product enhancements that improved platform experience.</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="tag">EdTech</span><span class="tag">NPS</span><span class="tag">Program Delivery</span>
+          <span class="tag">Cross-functional</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">// 02 — Skills <span>What I bring to the table</span></div>
+  <h2>Technical depth,<br>customer focus</h2>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-title">Customer Success & Strategy</div>
+      <div class="skill-items">
+        <div class="skill-item"><span class="skill-dot"></span>Enterprise Onboarding & Enablement</div>
+        <div class="skill-item"><span class="skill-dot"></span>Executive Business Reviews</div>
+        <div class="skill-item"><span class="skill-dot"></span>Renewal & Expansion Strategy</div>
+        <div class="skill-item"><span class="skill-dot"></span>Platform Adoption & Value Realization</div>
+        <div class="skill-item"><span class="skill-dot"></span>Stakeholder Management</div>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Technical Stack</div>
+      <div class="skill-items">
+        <div class="skill-item"><span class="skill-dot"></span>SQL · BigQuery · GCP</div>
+        <div class="skill-item"><span class="skill-dot"></span>Mixpanel · Amplitude · GA4</div>
+        <div class="skill-item"><span class="skill-dot"></span>Segment (CDP) · REST APIs</div>
+        <div class="skill-item"><span class="skill-dot"></span>Tableau · Looker Studio</div>
+        <div class="skill-item"><span class="skill-dot"></span>Salesforce · HubSpot · Braze</div>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Product & Analytics</div>
+      <div class="skill-items">
+        <div class="skill-item"><span class="skill-dot"></span>Product Thinking & Roadmapping</div>
+        <div class="skill-item"><span class="skill-dot"></span>Feature Prioritization & PRDs</div>
+        <div class="skill-item"><span class="skill-dot"></span>Data Strategy & Instrumentation</div>
+        <div class="skill-item"><span class="skill-dot"></span>Marketing Automation</div>
+        <div class="skill-item"><span class="skill-dot"></span>Cross-functional Collaboration</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">// 03 — About <span>The person behind the profile</span></div>
+  <h2>6 years of building<br>at the intersection</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        I started in EdTech, where I learned that the best technology is invisible — it just works, and users feel the outcome, not the complexity. That insight has shaped everything since.
+      </p>
+      <p>
+        At Ematic Solutions, I spent 5 years as the connective tissue between enterprise customers and complex analytics platforms — part consultant, part product thinker, part technical troubleshooter. I've built data pipelines, led executive QBRs, written PRDs, and debugged API payloads, sometimes in the same week.
+      </p>
+      <p>
+        I thrive in ambiguity, move fast with structure, and genuinely enjoy the moment when a customer understands their own data for the first time. Currently deepening my craft through the GrowthX Product & Growth Fellowship.
+      </p>
+    </div>
+    <div class="about-aside">
+      <div class="aside-item">
+        <div class="aside-item-label">Education</div>
+        <div class="aside-item-value">B.Sc. Electronics & Communication Systems<br><small style="color:var(--ink3); font-weight:400; font-size:14px;">Sri Krishna Arts & Science College</small></div>
+      </div>
+      <div class="aside-item">
+        <div class="aside-item-label">Currently</div>
+        <div class="aside-item-value">GrowthX Product & Growth Fellowship<br><small style="color:var(--ink3); font-weight:400; font-size:14px;">Cohort 29 · Jun 2025 – May 2026</small></div>
+      </div>
+      <div class="aside-item">
+        <div class="aside-item-label">Based in</div>
+        <div class="aside-item-value">South India<br><small style="color:var(--ink3); font-weight:400; font-size:14px;">Open to remote & relocation</small></div>
+      </div>
+      <div class="aside-item">
+        <div class="aside-item-label">Honours</div>
+        <div class="aside-item-value">Best Outgoing Student, 2019</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">// 04 — Contact <span></span></div>
+  <h2>Let's talk.</h2>
+  <p class="contact-sub">Open to roles across Customer Success, TAM, Solutions, and Product Management.</p>
+  <div class="contact-links">
+    <a href="mailto:navinkumarmanoharan@gmail.com" class="contact-link primary">navinkumarmanoharan@gmail.com</a>
+    <a href="https://linkedin.com/in/navinkumarmanoharan" class="contact-link" target="_blank">LinkedIn →</a>
+  </div>
+  <div class="open-to">
+    <div class="open-to-label">// Targeting</div>
+    <div class="open-to-roles">
+      <div class="open-to-role">CSM</div>
+      <div class="open-to-role">TAM</div>
+      <div class="open-to-role">Solutions Architect</div>
+      <div class="open-to-role">Product Manager</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Navin Kumar Manoharan · navinkumarmanoharan@gmail.com · Built to be found.
+</footer>
+
+<script>
+  function toggleExp(el) {
+    const isOpen = el.classList.contains('open');
+    document.querySelectorAll('.exp-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) el.classList.add('open');
+  }
+
+  // Subtle role pill rotation
+  const pills = document.querySelectorAll('.role-pill');
+  let active = 0;
+  setInterval(() => {
+    pills[active].classList.remove('active');
+    active = (active + 1) % pills.length;
+    pills[active].classList.add('active');
+  }, 2000);
+
+  // Intersection observer for section animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.style.opacity = 1;
+    });
+  }, { threshold: 0.1 });
+</script>
 </body>
 </html>
