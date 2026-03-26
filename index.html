@@ -190,6 +190,40 @@
     margin-bottom: 60px; line-height: 1.15;
   }
 
+  /* CURRENTLY */
+  .currently-section {
+    background: var(--bg);
+    padding: 80px 60px;
+    border-top: 1px solid var(--border);
+  }
+  .currently-inner { max-width: 1100px; }
+  .currently-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 36px;
+  }
+  .currently-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+  }
+  .currently-card {
+    background: white; border: 1px solid var(--border);
+    padding: 28px; display: flex; gap: 20px; align-items: flex-start;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .currently-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .currently-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+  .currently-title {
+    font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 6px;
+  }
+  .currently-desc {
+    font-size: 13px; color: var(--ink3); line-height: 1.65;
+  }
+
+  @media (max-width: 900px) {
+    .currently-section { padding: 60px 24px; }
+    .currently-grid { grid-template-columns: 1fr; }
+  }
+
   /* EXPERIENCE */
   #experience { background: white; }
   .exp-list { display: flex; flex-direction: column; gap: 1px; }
@@ -443,6 +477,43 @@
   </div>
 </div>
 
+<!-- CURRENTLY -->
+<div class="currently-section">
+  <div class="currently-inner">
+    <div class="currently-label">// Currently</div>
+    <div class="currently-grid">
+      <div class="currently-card">
+        <div class="currently-icon">⚙️</div>
+        <div class="currently-content">
+          <div class="currently-title">MCP & Agentic Workflows</div>
+          <div class="currently-desc">Exploring Model Context Protocol setups — how AI agents connect to tools, data sources, and APIs to act autonomously in real product environments.</div>
+        </div>
+      </div>
+      <div class="currently-card">
+        <div class="currently-icon">🔗</div>
+        <div class="currently-content">
+          <div class="currently-title">Google Stitch & Modern ETL</div>
+          <div class="currently-desc">Digging into Google Stitch and next-gen data pipeline patterns — understanding how modern data stacks are evolving beyond traditional CDPs and connectors.</div>
+        </div>
+      </div>
+      <div class="currently-card">
+        <div class="currently-icon">🚀</div>
+        <div class="currently-content">
+          <div class="currently-title">Vibe Coding & AI-Native Building</div>
+          <div class="currently-desc">Shipping fast with Lovable, Replit, and Claude — learning how the line between PM and builder is blurring, and how to use that to move from insight to prototype in hours.</div>
+        </div>
+      </div>
+      <div class="currently-card">
+        <div class="currently-icon">📐</div>
+        <div class="currently-content">
+          <div class="currently-title">Antigravity & Product Strategy</div>
+          <div class="currently-desc">Studying zero-CAC growth models and product-led distribution — how the best B2B SaaS products are built to grow themselves through usage, not just sales motion.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- EXPERIENCE -->
 <section id="experience">
   <div class="section-label">// 01 — Experience <span>Where I've done the work</span></div>
@@ -601,7 +672,7 @@
   <p class="contact-sub">Open to roles across Customer Success, TAM, Solutions, and Product Management.</p>
   <div class="contact-links">
     <a href="mailto:navinkumarmanoharan@gmail.com" class="contact-link primary">navinkumarmanoharan@gmail.com</a>
-    <a href="https://linkedin.com/in/navinkumarmanoharan" class="contact-link" target="_blank">LinkedIn →</a>
+    <a href="https://www.linkedin.com/in/navin-kumar-manoharan/" class="contact-link" target="_blank">LinkedIn →</a>
   </div>
   <div class="open-to">
     <div class="open-to-label">// Targeting</div>
